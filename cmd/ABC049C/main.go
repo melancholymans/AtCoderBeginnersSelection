@@ -8,16 +8,47 @@ import (
 func main() {
 	var s string
 	fmt.Scan(&s)
-	l := len(s)
-	c1 := strings.Count(s, "dream")
-	c2 := strings.Count(s, "dreamer")
-	c3 := strings.Count(s, "erase")
-	c4 := strings.Count(s, "eraser")
-	if l == c1*5+c2*7+c3*5+c4*6 {
+	for {
+		if s = strings.Replace(s, "dreamereraser", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "dreamererase", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "dreameraser", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "dreamerase", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "eraseeraser", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "eraseerase", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "erasereraser", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "erasererase", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "dreamer", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "eraser", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "dream", "", 1); len(s) < 5 {
+			break
+		}
+		if s = strings.Replace(s, "erase", "", 1); len(s) < 5 {
+			break
+		}
+	}
+	if len(s) == 0 {
 		fmt.Println("YES")
-		fmt.Println("C1", c1, "C2", c2, "C3", c3, "C4", c4)
 	} else {
 		fmt.Println("NO")
-		fmt.Println("C1", c1, "C2", c2, "C3", c3, "C4", c4)
 	}
 }

@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
 )
 
 func abs(a int) int {
@@ -13,18 +16,27 @@ func abs(a int) int {
 }
 
 func main() {
-	var n int
-	t := make([]int, 110000)
-	x := make([]int, 110000)
-	y := make([]int, 110000)
-	fmt.Scan(&n)
-	for i := 1; i < n+1; i++ {
-		fmt.Scan(&t[i], &x[i], &y[i])
+	sc := bufio.NewScanner(os.Stdin)
+	buf := make([]byte, 0)
+	sc.Buffer(buf, 131072)
+	sc.Split(bufio.ScanWords)
+
+	var a [3][110000]int
+	sc.Scan()
+	n, err := strconv.Atoi(sc.Text())
+	if err != nil {
+		panic(err)
+	}
+	for c := 1; c < n+1; c++ {
+		for r := 0; r < 3; r++ {
+			sc.Scan()
+			a[r][c], _ = strconv.Atoi(sc.Text())
+		}
 	}
 	flag := true
 	for i := 0; i < n; i++ {
-		dt := t[i+1] - t[i]
-		dst := abs(x[i+1]-x[i]) + abs(y[i+1]-y[i])
+		dt := a[0][i+1] - a[0][i]
+		dst := abs(a[1][i+1]-a[1][i]) + abs(a[2][i+1]-a[2][i])
 		if dst > dt {
 			flag = false
 		}
@@ -37,4 +49,5 @@ func main() {
 	} else {
 		fmt.Println("No")
 	}
+
 }

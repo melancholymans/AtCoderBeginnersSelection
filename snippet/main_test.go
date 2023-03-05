@@ -345,3 +345,61 @@ func TestUniquei(t *testing.T) {
 		t.Errorf("expect [-5 5 4 13 17 8 1], but %v", sl)
 	}
 }
+
+/*
+累積和
+sgで数列を渡すと、その数列の累積和を作ってくれる。
+そのあとにgetRange関数でleft-indexからright-indexをしてすると
+指定したindexにある数列の累積和を返す。indexは0-origin
+get関数は0からのindexまでの累積和を返す。getRange(0,5)と同じであるが計算は少し早くなる
+*/
+func TestCusum(t *testing.T) {
+	sg := []int{5, 8, 17, 13, 4, 5, -5}
+	cs := newcusum(sg)
+	s := cs.getRange(2, 5)
+	if s != 39 {
+		t.Errorf("expect 39, but %d", s)
+	}
+	s = cs.get(5)
+	if s != 52 {
+		t.Errorf("expect 52, but %d", s)
+	}
+
+	fmt.Println(s)
+
+}
+
+/*
+2次元の整数型スライスを作って指定した値で初期化する
+Sli( l		行数
+
+	m 		列数
+	def 	初期化する値
+
+)
+*/
+func TestSli(t *testing.T) {
+	sl := Sli(3, 4, 33)
+	if sl[0][0] != 33 {
+		t.Errorf("expect 1, but %d", sl[0][0])
+	}
+	if sl[2][0] != 33 {
+		t.Errorf("expect 1, but %d", sl[2][0])
+	}
+	if sl[0][3] != 33 {
+		t.Errorf("expect 1, but %d", sl[0][3])
+	}
+	if sl[2][3] != 33 {
+		t.Errorf("expect 1, but %d", sl[2][3])
+	}
+	var sum int
+	for i := 0; i < 4; i++ {
+		sum += sl[0][i]
+	}
+	fmt.Println(sum)
+	sum = 0
+	for i := 0; i < 3; i++ {
+		sum += sl[i][0]
+	}
+	fmt.Println(sum)
+}

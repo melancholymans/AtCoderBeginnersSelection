@@ -1,13 +1,41 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math"
 	"math/bits"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
 )
+
+/*
+gpprog氏のコードから持ってきた
+問題はABC086C - Traveling
+
+	func main(){
+		 for i := 0; i < n; i++ {
+	    	t, x, y := rl(), rl(), rl()
+			...
+		 }
+		 のように使う
+	}
+*/
+var sc = bufio.NewScanner(os.Stdin)
+
+func init() {
+	sc.Split(bufio.ScanWords)
+	buf := make([]byte, 0)
+	sc.Buffer(buf, 131072)
+}
+
+func rl() int {
+	sc.Scan()
+	n, _ := strconv.Atoi(sc.Text())
+	return n
+}
 
 func Atoi(s string) int {
 	i, e := strconv.Atoi(s)
@@ -224,4 +252,43 @@ func Uniquei(sl []int) []int {
 		j++
 	}
 	return rsl[:j]
+}
+
+type cusum struct {
+	l int
+	s []int
+}
+
+func newcusum(sl []int) *cusum {
+	c := &cusum{}
+	c.l = len(sl)
+	c.s = make([]int, len(sl)+1)
+	for i, v := range sl {
+		c.s[i+1] = c.s[i] + v
+	}
+	return c
+}
+
+// get sum f <= i && i <= t
+func (c *cusum) getRange(f, t int) int {
+	if f > t || f >= c.l {
+		return 0
+	}
+	return c.s[t+1] - c.s[f]
+}
+
+// get sum 0 to i
+func (c *cusum) get(i int) int {
+	return c.s[i+1]
+}
+
+func Sli(l, m int, def int) [][]int {
+	sl := make([][]int, l)
+	for i := 0; i < l; i++ {
+		sl[i] = make([]int, m)
+		for j := 0; j < m; j++ {
+			sl[i][j] = def
+		}
+	}
+	return sl
 }
